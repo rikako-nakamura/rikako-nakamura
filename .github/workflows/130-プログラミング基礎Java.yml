@@ -1,25 +1,476 @@
+name: プログラミング基礎Java
 
-# 参考
-# https://docs.github.com/ja/actions/learn-github-actions/workflow-syntax-for-github-actions#about-yaml-syntax-for-workflows
- 
-# Workflow名
-name: Test
-# イベントトリガー
-# Git Pushした時にこのワークフローを実行する
-on: [push]
- 
+on:
+  push:
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+env:
+  DIR: 13-Java/src
+
 jobs:
-  # job名(任意の名前で良い)
-  run-shell-commmand:
-    # virtual machineの形式を指定
+  setup:
+    name: セットアップ
     runs-on: ubuntu-latest
-    # jobのステップ
+    outputs:
+      E1301Q1: ${{ steps.filter.outputs.E1301Q1 }}
+      E1302Q1: ${{ steps.filter.outputs.E1302Q1 }}
+      E1303Q1: ${{ steps.filter.outputs.E1303Q1 }}
+      E1303Q2: ${{ steps.filter.outputs.E1303Q2 }}
+      E1303Q3: ${{ steps.filter.outputs.E1303Q3 }}
+      E1304Q1: ${{ steps.filter.outputs.E1304Q1 }}
+      E1304Q2: ${{ steps.filter.outputs.E1304Q2 }}
+      E1304Q3: ${{ steps.filter.outputs.E1304Q3 }}
+      E1305Q1: ${{ steps.filter.outputs.E1305Q1 }}
+      E1305Q2: ${{ steps.filter.outputs.E1305Q2 }}
+      E1305Q3: ${{ steps.filter.outputs.E1305Q3 }}
+      E1305Q4: ${{ steps.filter.outputs.E1305Q4 }}
+      E1305Q5: ${{ steps.filter.outputs.E1305Q5 }}
+      E1305Q6: ${{ steps.filter.outputs.E1305Q6 }}
+      E1306Q1: ${{ steps.filter.outputs.E1306Q1 }}
+      E1306Q2: ${{ steps.filter.outputs.E1306Q2 }}
+      E1306Q3: ${{ steps.filter.outputs.E1306Q3 }}
+      E1306Q4: ${{ steps.filter.outputs.E1306Q4 }}
+      E1306Q5: ${{ steps.filter.outputs.E1306Q5 }}
+      E1307Q1: ${{ steps.filter.outputs.E1307Q1 }}
+      E1308Q1: ${{ steps.filter.outputs.E1308Q1 }}
+      E1308Q2: ${{ steps.filter.outputs.E1308Q2 }}
+      E1308Q3: ${{ steps.filter.outputs.E1308Q3 }}
+      E1308Q4: ${{ steps.filter.outputs.E1308Q4 }}
+      E1309Q1: ${{ steps.filter.outputs.E1309Q1 }}
+      E1309Q2: ${{ steps.filter.outputs.E1309Q2 }}
+      E1309Q3: ${{ steps.filter.outputs.E1309Q3 }}
+      E1309Q4: ${{ steps.filter.outputs.E1309Q4 }}
     steps:
-      # ステップ名
-      - name: echo a string
-        run: echo "Hello World"
-      # ステップ2
-      - name: multiline script
-        run: | # 複数のコマンドを記載したいときは|(パイプ)で繋ぐ
-          node -v
-          npm -v
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '18'
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          E1301Q1: ${{ env.DIR }}/E1301Q1.java
+          E1302Q1: ${{ env.DIR }}/E1302Q1.java
+          E1303Q1: ${{ env.DIR }}/E1303Q1.java
+          E1303Q2: ${{ env.DIR }}/E1303Q2.java
+          E1303Q3: ${{ env.DIR }}/E1303Q3.java
+          E1304Q1: ${{ env.DIR }}/E1304Q1.java
+          E1304Q2: ${{ env.DIR }}/E1304Q2.java
+          E1304Q3: ${{ env.DIR }}/E1304Q3.java
+          E1305Q1: ${{ env.DIR }}/E1305Q1.java
+          E1305Q2: ${{ env.DIR }}/E1305Q2.java
+          E1305Q3: ${{ env.DIR }}/E1305Q3.java
+          E1305Q4: ${{ env.DIR }}/E1305Q4.java
+          E1305Q5: ${{ env.DIR }}/E1305Q5.java
+          E1305Q6: ${{ env.DIR }}/E1305Q6.java
+          E1306Q1: ${{ env.DIR }}/E1306Q1.java
+          E1306Q2: ${{ env.DIR }}/E1306Q2.java
+          E1306Q3: ${{ env.DIR }}/E1306Q3.java
+          E1306Q4: ${{ env.DIR }}/E1306Q4.java
+          E1306Q5: ${{ env.DIR }}/E1306Q5.java
+          E1307Q1: ${{ env.DIR }}/E1307Q1.java
+          E1308Q1: ${{ env.DIR }}/E1308Q1.java
+          E1308Q2: ${{ env.DIR }}/E1308Q2.java
+          E1308Q3: ${{ env.DIR }}/E1308Q3.java
+          E1308Q4: ${{ env.DIR }}/E1308Q4.java
+          E1309Q1: ${{ env.DIR }}/E1309Q1.java
+          E1309Q2: ${{ env.DIR }}/E1309Q2.java
+          E1309Q3: ${{ env.DIR }}/E1309Q3.java
+          E1309Q4: ${{ env.DIR }}/E1309Q4.java
+  
+  E1301Q1:
+    name: 1.はじめに 練習問題1
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1301Q1 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1301Q1
+
+  E1302Q1:
+    name: 2.基本構文 練習問題1
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1302Q1 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1302Q1
+
+  E1303Q1:
+    name: 3.変数とデータ型 練習問題1
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1303Q1 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1303Q1
+
+  E1303Q2:
+    name: 3.変数とデータ型 練習問題2
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1303Q2 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1303Q2
+
+  E1303Q3:
+    name: 3.変数とデータ型 練習問題3
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1303Q3 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1303Q3
+
+  E1304Q1:
+    name: 4.演算子 練習問題1
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1304Q1 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1304Q1
+
+  E1304Q2:
+    name: 4.演算子 練習問題2
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1304Q2 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1304Q2
+
+  E1304Q3:
+    name: 4.演算子 練習問題3
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1304Q3 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1304Q3
+
+  E1305Q1:
+    name: 5.制御構文 練習問題1
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1305Q1 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1305Q1
+
+  E1305Q2:
+    name: 5.制御構文 練習問題2
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1305Q2 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1305Q2
+
+  E1305Q3:
+    name: 5.制御構文 練習問題3
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1305Q3 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1305Q3
+
+  E1305Q4:
+    name: 5.制御構文 練習問題4
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1305Q4 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1305Q4
+
+  E1305Q5:
+    name: 5.制御構文 練習問題5
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1305Q5 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1305Q5
+
+  E1305Q6:
+    name: 5.制御構文 練習問題6
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1305Q6 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1305Q6
+
+  E1306Q1:
+    name: 6.関数 練習問題1
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1306Q1 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1306Q1
+
+  E1306Q2:
+    name: 6.関数 練習問題2
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1306Q2 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1306Q2
+
+  E1306Q3:
+    name: 6.関数 練習問題3
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1306Q3 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1306Q3
+
+  E1306Q4:
+    name: 6.関数 練習問題4
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1306Q4 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1306Q4
+
+  E1306Q5:
+    name: 6.関数 練習問題5
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1306Q5 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1306Q5
+
+  E1307Q1:
+    name: 7.クラス 練習問題1
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1307Q1 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1307Q1
+
+  E1308Q1:
+    name: 8.ファイル処理 練習問題1
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1308Q1 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1308Q1
+
+  E1308Q2:
+    name: 8.ファイル処理 練習問題2
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1308Q2 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1308Q2
+
+  E1308Q3:
+    name: 8.ファイル処理 練習問題3
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1308Q3 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1308Q3
+
+  E1308Q4:
+    name: 8.ファイル処理 練習問題4
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1308Q4 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1308Q4
+
+  E1309Q1:
+    name: 9.プログラミング演習 問題1
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1309Q1 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1309Q1
+
+  E1309Q2:
+    name: 9.プログラミング演習 問題2
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1309Q2 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1309Q2
+
+  E1309Q3:
+    name: 9.プログラミング演習 問題3
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1309Q3 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1309Q3
+
+  E1309Q4:
+    name: 9.プログラミング演習 問題4
+    runs-on: ubuntu-latest
+    needs: setup
+    if: ${{ needs.setup.outputs.E1309Q4 == 'true' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      - run: |
+          python UnitTest.py --terminate 1 --keyword E1309Q4
