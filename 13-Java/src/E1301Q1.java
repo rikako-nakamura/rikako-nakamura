@@ -21,5 +21,4 @@ Audit done.
 */
 
 
-// ここより下に解答を記載する。
-console.log("hello world");
+// ここより下に解答を記載する。 console.log("ハローワールド！！");
