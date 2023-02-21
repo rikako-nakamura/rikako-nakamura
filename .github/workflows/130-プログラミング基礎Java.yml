@@ -1,1 +1,25 @@
-test
+
+# 参考
+# https://docs.github.com/ja/actions/learn-github-actions/workflow-syntax-for-github-actions#about-yaml-syntax-for-workflows
+ 
+# Workflow名
+name: Test
+# イベントトリガー
+# Git Pushした時にこのワークフローを実行する
+on: [push]
+ 
+jobs:
+  # job名(任意の名前で良い)
+  run-shell-commmand:
+    # virtual machineの形式を指定
+    runs-on: ubuntu-latest
+    # jobのステップ
+    steps:
+      # ステップ名
+      - name: echo a string
+        run: echo "Hello World"
+      # ステップ2
+      - name: multiline script
+        run: | # 複数のコマンドを記載したいときは|(パイプ)で繋ぐ
+          node -v
+          npm -v
