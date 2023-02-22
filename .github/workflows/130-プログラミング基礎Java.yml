@@ -12,7 +12,28 @@ env:
   DIR: 13-Java/src
 
 jobs:
-        
+  setup:
+    name: セットアップ
+    runs-on: ubuntu-latest
+    outputs:
+      E1301Q1: ${{ steps.filter.outputs.E1301Q1 }}
+      E1302Q1: ${{ steps.filter.outputs.E1302Q1 }}
+      E1303Q1: ${{ steps.filter.outputs.E1303Q1 }}
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '18'
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          E1301Q1: ${{ env.DIR }}/E1301Q1.java
+          E1302Q1: ${{ env.DIR }}/E1302Q1.java
+          E1303Q1: ${{ env.DIR }}/E1303Q1.java
+          
   E1301Q1:
     name: 1.はじめに 練習問題1
     runs-on: ubuntu-latest
