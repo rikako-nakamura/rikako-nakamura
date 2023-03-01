@@ -21,4 +21,6 @@ Audit done.
 */
 
 
-// ここより下に解答を記載する。 SyStem.out.println("ハローワールド！");
+// ここより下に解答を記載する。
+
+SyStem.out.println("ハローワールド");
