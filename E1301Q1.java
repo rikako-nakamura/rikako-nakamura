@@ -20,4 +20,4 @@ Audit done.
 
 // ここより下に解答を記載する。
 
-SyStem.out.println("ハローワールド！！");
+SyStem.out.println("ハローワールド！");
